@@ -3,15 +3,11 @@ import { useEffect, useState } from "react";
 
 export const useTheme = () => {
   const [themeColor, setThemeColor] = useState(() => {
-    const localTheme = localStorage.getItem("theme");
+    const localTheme = window.localStorage.getItem("theme");
     return localTheme ? localTheme : "light";
   });
 
   useEffect(() => {
-    const initialValidationCondition =
-      !("theme" in localStorage) &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-
     if (themeColor === "light") {
       document.documentElement.classList.remove("dark");
       localStorage.theme = "light";
@@ -30,6 +26,7 @@ export const useTheme = () => {
   };
 
   return {
+    themeColor,
     handleTheme,
   };
 };
