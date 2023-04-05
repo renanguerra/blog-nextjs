@@ -6,7 +6,7 @@ export const useTheme = () => {
 
   useEffect(() => {
     if (
-      themeColor === "dark" ||
+      localStorage.theme === "dark" ||
       (!("theme" in localStorage) &&
         window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
