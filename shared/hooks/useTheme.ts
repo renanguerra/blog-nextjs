@@ -2,18 +2,19 @@
 import { useEffect, useState } from "react";
 
 export const useTheme = () => {
-  const [themeColor, setThemeColor] = useState(() => {
-    const localTheme = window.localStorage.getItem("theme");
-    return localTheme ? localTheme : "light";
-  });
+  const [themeColor, setThemeColor] = useState("dark");
 
   useEffect(() => {
-    if (themeColor === "light") {
-      document.documentElement.classList.remove("dark");
-      localStorage.theme = "light";
-    } else {
+    if (
+      themeColor === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
       document.documentElement.classList.add("dark");
       localStorage.theme = "dark";
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.theme = "light";
     }
   }, [themeColor]);
 
